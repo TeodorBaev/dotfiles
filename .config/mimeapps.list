@@ -1,0 +1,4 @@
+[Default Applications]
+application/x-bittorrent=deluge.desktop
+x-scheme-handler/magnet=deluge.desktop
+
