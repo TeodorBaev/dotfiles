@@ -59,7 +59,7 @@ bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F
 
 # Start Applications
 
-bindsym $mod+F1 exec brave https://www.messenger.com/
+bindsym $mod+F1 exec brave https://www.messenger.com/ --new-window
 bindsym $mod+F2 exec brave
 bindsym $mod+F3 exec skypeforlinux
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec

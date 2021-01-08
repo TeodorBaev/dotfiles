@@ -1,3 +1,4 @@
+
 #  _____           ____              #
 # |_   _|__  ___  |  _ \  ___  _ __  #
 #   | |/ _ \/ _ \ | | | |/ _ \| .__| #
@@ -6,15 +7,16 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-#background = #282a36
+;background = #282a36
 background = #282A36
 background-alt = #6272a4
 ;foreground = ${xrdb:color7:#222}
 foreground = #f8f8f2
 foreground-alt = #9AEDFE
-#foreground-alt = #e6e6e6
+;foreground-alt = #e6e6e6
 primary = #ffb52a
-secondary = #e60053
+!secondary = #e60053
+secondary = #ff5555
 alert = #bd2c40
 
 [bar/example]
@@ -89,17 +91,18 @@ label-unmounted-foreground = ${colors.foreground-alt}
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+;format-prefix = " "
+
+label-indicator-padding = 2
+label-indicator-margin = 0
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
 
 label-layout = %layout%
 label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
 
 [module/i3]
 type = internal/i3
@@ -186,7 +189,8 @@ format-disconnected =
 
 [module/eth]
 type = internal/network
-interface = enp7s0
+;interface = enp7s0
+interface = nm-bridge
 interval = 3.0
 
 format-connected-underline = #55aa55
@@ -280,8 +284,9 @@ animation-charging-1 ="BAT *"
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750 
 
-animation-discharging-0 ="BAT  "
-animation-discharging-1 ="BAT -"
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
