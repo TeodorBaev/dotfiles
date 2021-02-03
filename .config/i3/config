@@ -5,7 +5,7 @@
 #   |_|\___|\___(_)____/ \___/|_|    #
 
 ## run on startup
-
+exec xrandr --output HDMI-1 --auto --scale 1.50x1.50 --output DP-0 --auto --right-of HDMI-1 --panning 3840x2160+2880+0
 exec --no-startup-id "setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:alt_shift_toggle"
 exec --no-startup-id deluged
 exec --no-startup-id "numlockx on"

@@ -5,8 +5,9 @@
 !   |_|\___|\___(_)____/ \___/|_|    !
 
 
-Xft.dpi:       128
+Xft.dpi:       144
 !Xft.dpi:       96
+!Xft.dpi:       192
 Xft.antialias: true
 Xft.hinting: true
 Xft.autohint: true
