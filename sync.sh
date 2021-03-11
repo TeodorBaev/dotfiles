@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Copy selected dotfiles from configs list and .Xresources
 
