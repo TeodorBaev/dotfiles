@@ -6,27 +6,21 @@
 #   |_|\___|\___(_)____/ \___/|_|    #
 
 [colors]
-;background = ${xrdb:color0:#222}
-;background = #282a36
-background = #282A36
+background = ${env:COLOR_ENV_BG:}
 background-alt = #6272a4
-;foreground = ${xrdb:color7:#222}
-foreground = #f8f8f2
-foreground-alt = #9AEDFE
-;foreground-alt = #e6e6e6
-primary = #ffb52a
-!secondary = #e60053
-secondary = #ff5555
-alert = #bd2c40
+foreground = ${env:COLOR_ENV_FG:}
+foreground-alt = ${env:COLOR_ENV_14:}
+primary = ${env:COLOR_ENV_1:}
+secondary = ${env:COLOR_ENV_1:}
+alert = ${env:COLOR_ENV_FG:}
+testcolor = ${env:COLOR_ENV_FG:}
 
 [bar/example]
 monitor = ${env:MONITOR:}
-dpi = 144
 width = 100%
-height = 30
+dpi = ${env:MONITOR_DPI:} 
 ;offset-x = 1%
 ;offset-y = 1%
-radius = 0
 fixed-center = false
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -43,21 +37,17 @@ padding-right = 1
 module-margin-left = 0
 module-margin-right = 1
 
-font-0 = JetBrains Mono:size=12
+font-0 = JetBrains Mono:size=12;2:antialias=true
 font-1 = JetBrains Mono:size=12
-font-2 = JetBrains Mono:size=12
-font-3 = JetBrains Mono:size=12
-#font-1 = Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=12;1
-#font-2 = Font Awesome 5 Free,Font Awesome 5 Free Regular:style=Regular:size=12;1
-#font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=12;1
 
 modules-left = i3
-modules-center = xwindow
-modules-right =  pulseaudio alsa memory cpu wlan eth battery temperature xkeyboard date
+modules-center = 
+modules-right =  pulseaudio alsa memory cpu wlan eth battery cpu-temp date xkeyboard 
 
 tray-position = right
-tray-padding = 2
+#tray-padding = 1
 #tray-background = #555
+tray-maxsize = 300
 
 ;wm-restack = bspwm
 ;wm-restack = i3
@@ -88,23 +78,24 @@ label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/xkeyboard]
+
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-;format-prefix = " "
+# RED COLOR FOR CAPSLOCK
+label-indicator-on-capslock-padding = 2
+label-indicator-on-capslock-margin = 0
+label-indicator-on-capslock-background = ${colors.secondary}
 
-label-indicator-padding = 2
-label-indicator-margin = 0
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
+format = <label-indicator><label-layout> 
+format-spacing = 0
 
 label-layout = %layout%
-label-layout-underline = ${colors.secondary}
+label-indicator-on = +%name%
+label-indicator-on-capslock = "CAPS LOCK"
 
 [module/i3]
+
 type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
@@ -113,8 +104,8 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
 
-label-mode-padding = 0
-label-mode-foreground = #000
+label-mode-padding = 2
+label-mode-foreground = ${colors.foreground}
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
@@ -141,26 +132,28 @@ label-urgent-padding = 1
 ; Separator in between workspaces
 label-separator = |
 label-separator-padding = 0
-#label-separator-foreground = #ffb52a
 label-separator-foreground = #9AEDFE
+
 
 [module/cpu]
 type = internal/cpu
 interval = 1
-format-prefix = "CPU"
+format-prefix = "CPU "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%%
+
+[module/cpu-temp]
+type = custom/script
+exec = ~/.config/polybar/scripts/cpu_temp.sh 
 
 [module/memory]
 type = internal/memory
 interval = 1
 format-prefix = "RAM "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-#label = %percentage_used%%
 #label = %gb_used%/%gb_free% 
-label = %gb_used%/%gb_total%
+label = %gb_used:0:3%/%gb_total:1:3%GiB
 
 [module/wlan]
 type = internal/network
@@ -208,25 +201,22 @@ format-disconnected =
 type = internal/date
 interval = 1
 
-date =
-date-alt = " %Y-%m-%d"
 
-time = %Y-%m-%d %H:%M
-time-alt = %H:%M:%S
+time = "%Y-%m-%d %H:%M"
+time-alt = "%H:%M:%S"
 
-format-prefix =
+format-prefix = "TIME "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
-label = %date% %time%
+label = "%time%"
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+format-volume = <ramp-volume> <label-volume> <bar-volume>
+label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
-
+ramp-volume-0 = VOL
+ramp-volume-foreground = ${colors.foreground-alt}
 label-muted = 🔇 muted
 label-muted-foreground = #666
 
@@ -259,34 +249,20 @@ format-charging-underline = #ffb52a
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = "BAT "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-#animation-charging-0 ="CHARGING"
-#animation-charging-1 ="HARGING "
-#animation-charging-2 ="ARGING C"
-#animation-charging-3 ="RGING CH"
-#animation-charging-4 ="GING CHA"
-#animation-charging-5 ="ING CHAR"
-#animation-charging-6 ="NG CHARG"
-#animation-charging-7 ="G CHARGI"
-#animation-charging-8 =" CHARGIN"
-
-animation-charging-0 ="BAT  "
-animation-charging-1 ="BAT *"
+animation-charging-0 = "BAT  "
+animation-charging-1 = "BAT *"
 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750 
 
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
+animation-discharging-0 = BAT  
+animation-discharging-1 = BAT -
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
@@ -299,14 +275,11 @@ format = <ramp> <label>
 format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
-format-prefix = TEMP
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = TEMP
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]

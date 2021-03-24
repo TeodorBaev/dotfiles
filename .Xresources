@@ -5,19 +5,16 @@
 !   |_|\___|\___(_)____/ \___/|_|    !
 
 
-Xft.dpi:       144
-!Xft.dpi:       96
-!Xft.dpi:       192
+Xft.dpi:	144 
 Xft.antialias: true
 Xft.hinting: true
 Xft.autohint: true
 Xft.hintstyle: hintslight
 
-! Dracula color set
+! Dracula Xresources palette
 
 *.foreground: #F8F8F2
 *.background: #282A36
-!*.color0:     #282A36
 *.color0:     #000000
 *.color8:     #4D4D4D
 *.color1:     #FF5555

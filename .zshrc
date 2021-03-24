@@ -99,5 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias bitch="sudo"
+alias weather="curl wttr.in"
+alias play="DISPLAY=:0 mpv -fs"
 
 neofetch
