@@ -2,7 +2,7 @@
 
 # Copy selected dotfiles from configs list and .Xresources
 
-configs='nano polybar i3'
+configs='alacritty mpv nano polybar i3'
 
 for config in $configs
 do

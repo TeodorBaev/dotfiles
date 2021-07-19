@@ -5,7 +5,7 @@
 !   |_|\___|\___(_)____/ \___/|_|    !
 
 
-Xft.dpi:	144 
+Xft.dpi: 144	
 Xft.antialias: true
 Xft.hinting: true
 Xft.autohint: true
@@ -57,23 +57,25 @@ URxvt*scrollBar:         false
 
 ! perl extensions
 !URxvt*perl-ext-common:  default,clipboard,url-select,keyboard-select,resize-font
-URxvt*perl-ext-common:  default,clipboard,url-select,keyboard-select
-
+URxvt.perl-ext-common: default,clipboard,url-select,keyboard-select
 ! macros for clipboard and selection
-URxvt*copyCommand:      xclip -i -selection clipboard
-URxvt*pasteCommand:     xclip -o -selection clipboard
-URxvt*keysym.M-c:       perl:clipboard:copy
-URxvt*keysym.m-v:       perl:clipboard:paste
-URxvt*keysym.M-C-v:     perl:clipboard:paste_escaped
-URxvt*keysym.M-Escape:  perl:key board-select:activate
-URxvt*keysym.M-s:       perl:keyboard-select:search
-!URxvt*keysym.M-u:       perl:url-select:select_next
-!URxvt*resize-font.smaller:	C-Down
-!URxvt*resize-font.bigger:	C-Up
-URxvt*urlLauncher:      firefox
-URxvt*underlineURLs:    true
-URxvt*urlButton:        1
-URxvt*geometry: 		90x30
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
 
-URxvt*keysym.Control-Shift-C: perl:clipboard:copy
-URxvt*keysym.Control-Shift-V: perl:clipboard:paste
+URxvt.keysym.M-u:	perl:url-select:select_next
+URxvt.copyCommand:      xclip -i -selection clipboard
+URxvt.pasteCommand:     xclip -o -selection clipboard 
+URxvt.keysym.M-c:       perl:clipboard:copy
+URxvt.keysym.m-v:       perl:clipboard:paste
+URxvt.keysym.M-C-v:     perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape:  perl:keyboard-select:activate
+URxvt.keysym.M-s:       perl:keyboard-select:search
+URxvt.resize-font.smaller:	C-Down
+URxvt.resize-font.bigger:	C-Up
+URxvt.urlLauncher:      firefox
+URxvt.underlineURLs:    true
+URxvt.urlButton:        1
+URxvt.geometry: 		90x30
+
+URxvt.keysym.Control-Shift-C: perl:clipboard:copy
+URxvt.keysym.Control-Shift-V: perl:clipboard:paste

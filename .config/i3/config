@@ -5,11 +5,17 @@
 #   |_|\___|\___(_)____/ \___/|_|    #
 
 ## run on startup
-exec xrandr --output HDMI-1 --auto --scale 1.50x1.50 --output DP-0 --auto --right-of HDMI-1 --panning 3840x2160+2880+0
+#exec xrandr --output HDMI-0 --mode 1920x1080 --auto --scale 1.50x1.50 --left-of HDMI-1 --output HDMI-1 --mode 1920x1080 --auto --scale 1.50x1.50 --output DP-0 --auto --right-of HDMI-1 --panning 3840x2160+2880+0
+exec xrandr --output DVI-D-0 --off --output HDMI-0 --mode 1920x1080 --scale 1.50x1.50 --pos 0x601 --rotate left --output HDMI-1 --mode 1920x1080 --scale 1.50x1.50 --pos 1620x601 --rotate right --output DP-0 --primary --mode 3840x2160 --pos 3240x0 --rotate normal --output DP-1 --off --output DP-2 --off --output DP-3 --off
 exec --no-startup-id "setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:alt_shift_toggle"
 exec --no-startup-id deluged
 exec --no-startup-id "numlockx on"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+## Brightness control laptop
+
+bindsym XF86MonBrightnessDown exec brightnessctl s 9%-
+bindsym XF86MonBrightnessUp exec brightnessctl s 9%+
 
 ## media control
 
@@ -47,8 +53,9 @@ default_floating_border pixel 5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id xterm
-bindsym $mod+shift+Return exec i3-sensible-terminal -e zsh
+bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+shift+Return exec xterm -e zsh
+# bindsym $mod+shift+Return exec i3-sensible-terminal -e zsh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -318,66 +325,9 @@ set_from_resource $term_color15    color15
 
 bindsym $mod+m bar mode toggle
 
-#############################
-### settings for i3-gaps: ###
-#############################
-
-# Set inner/outer gaps
-gaps inner 0
-gaps outer 0
-
-#gaps inner 6
-#gaps outer -2
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
-# Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders on
-
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace>
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
-
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
 
 
 # class                 border  bground text    indicator child_border
